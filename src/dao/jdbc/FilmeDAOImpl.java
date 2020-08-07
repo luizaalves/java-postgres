@@ -55,6 +55,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
 		
 	}
 
+	//deletar também aluguel e re_aluguel relacionados ao filme
 	@Override
 	public void delete(Connection conn, Integer idFilme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("delete from en_filme where id_filme = ?");
