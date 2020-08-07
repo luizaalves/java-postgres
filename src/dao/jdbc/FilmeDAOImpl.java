@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import dao.FilmeDAO;
-import entidades.Cliente;
 import entidades.Filme;
 
 public class FilmeDAOImpl implements FilmeDAO  {
