@@ -34,5 +34,9 @@ public class Cliente {
         this.nome = nome;
         return this;
     }
+    @Override
+    public String toString() {
+        return String.format("|%d|%s|",idCliente,nome);
+    }
 
 }

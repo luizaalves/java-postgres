@@ -65,4 +65,17 @@ public class Aluguel {
         this.valor = valor;
         return this;
     }
+    @Override
+    public String toString() {
+    	return String.format("|%d|%s|%s|%s|",idAluguel,cliente,dataAluguel.toString(),valor);
+    }
+    
+    public String toStringFilmes(){
+        StringBuilder sb = new StringBuilder();
+        for (Filme filme:filmes){
+            sb.append(filme.toString());
+        }
+        return sb.toString();
+    }
+
 }

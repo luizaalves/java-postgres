@@ -54,4 +54,8 @@ public class Filme {
         this.descricao = descricao;
         return this;
     }
+    @Override
+    public String toString() {
+    	return String.format("|%d|%s|%s|%s|",idFilme,dataLancamento.toString(),nome,descricao);
+    }
 }
