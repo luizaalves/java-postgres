@@ -19,7 +19,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
         Integer idFilme = this.getNextId(conn);
 
         myStmt.setInt(1, idFilme);
-        myStmt.setDate(2,(Date) filme.getDataLancamento());
+        myStmt.setDate(2, new java.sql.Date( filme.getDataLancamento().getTime()));
         myStmt.setString(3, filme.getNome());
         myStmt.setString(4, filme.getDescricao());
 
@@ -42,13 +42,12 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	@Override
 	public void edit(Connection conn, entidades.Filme filme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("update en_filme set nome = (?), data_lancamento = (?), "
-				+ "nome = (?), descricao = (?) where id_filme = (?)");
+				+ " descricao = (?) where id_filme = (?)");
 
         myStmt.setString(1, filme.getNome());
         myStmt.setDate(2,(Date) filme.getDataLancamento());
-        myStmt.setString(3, filme.getNome());
-        myStmt.setString(4, filme.getDescricao());
-		myStmt.setInt(5, filme.getIdFilme());
+        myStmt.setString(3, filme.getDescricao());
+		myStmt.setInt(4, filme.getIdFilme());
 		
         myStmt.execute();
         conn.commit();
