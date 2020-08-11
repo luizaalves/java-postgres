@@ -7,16 +7,16 @@ import java.util.Collection;
 
 public interface AluguelDAO {
 
-    void insert(Connection conn, Aluguel aluguel) throws Exception;
+    void insert(Aluguel aluguel) throws Exception;
 
-    Integer getNextId(Connection conn) throws Exception;
+    Integer getNextId() throws Exception;
 
-    void edit(Connection conn, Aluguel aluguel) throws Exception;
+    void edit(Aluguel aluguel) throws Exception;
 
-    void delete(Connection conn, Aluguel aluguel) throws Exception;
+    void delete(Aluguel aluguel) throws Exception;
 
-    Aluguel find(Connection conn, Integer idAluguel) throws Exception;
+    Aluguel find(Integer idAluguel) throws Exception;
 
-    Collection<Aluguel> list(Connection conn) throws Exception;
+    Collection<Aluguel> list() throws Exception;
 
 }

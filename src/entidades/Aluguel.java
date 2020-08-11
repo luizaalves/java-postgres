@@ -1,5 +1,6 @@
 package entidades;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -67,13 +68,14 @@ public class Aluguel {
     }
     @Override
     public String toString() {
-    	return String.format("|%d|%s|%s|%s|%s",idAluguel,cliente,dataAluguel.toString(),valor,toStringFilmes());
+    	return String.format("|%-5d|%-20s|%-15s|%-6s|%-50s|",idAluguel,cliente.getNome(),dataAluguel.toString(),valor,toStringFilmes());
     }
     
     public String toStringFilmes(){
         StringBuilder sb = new StringBuilder();
         for (Filme filme:filmes){
-            sb.append(filme.toString());
+            sb.append(filme.getNome()).append(", ");
+            
         }
         return sb.toString();
     }
