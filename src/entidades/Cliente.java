@@ -36,7 +36,7 @@ public class Cliente {
     }
     @Override
     public String toString() {
-        return String.format("|%d|%s|",idCliente,nome);
+        return String.format("|%-5d|%-20s|",idCliente,nome);
     }
 
 }
