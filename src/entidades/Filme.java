@@ -58,6 +58,6 @@ public class Filme {
     }
     @Override
     public String toString() {
-    	return String.format("|%d|%s|%s|%s|",idFilme,dataLancamento.toString(),nome,descricao);
+    	return String.format("|%-5d|%-15s|%-35s|%-45s|",idFilme,dataLancamento.toString(),nome,descricao);
     }
 }

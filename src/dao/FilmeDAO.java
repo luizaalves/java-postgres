@@ -7,16 +7,16 @@ import java.util.Collection;
 
 public interface FilmeDAO {
 
-    void insert(Connection conn, Filme filme) throws Exception;
+    void insert(Filme filme) throws Exception;
 
-    Integer getNextId(Connection conn) throws Exception;
+    Integer getNextId() throws Exception;
 
-    void edit(Connection conn, Filme filme) throws Exception;
+    void edit(Filme filme) throws Exception;
 
-    void delete(Connection conn, Integer idFilme) throws Exception;
+    void delete(Integer idFilme) throws Exception;
 
-    Filme find(Connection conn, Integer idFilme) throws Exception;
+    Filme find(Integer idFilme) throws Exception;
 
-    Collection<Filme> list(Connection conn) throws Exception;
+    Collection<Filme> list() throws Exception;
 
 }

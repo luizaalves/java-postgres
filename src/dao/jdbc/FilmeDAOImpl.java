@@ -11,12 +11,13 @@ import dao.FilmeDAO;
 import entidades.Filme;
 
 public class FilmeDAOImpl implements FilmeDAO  {
+	Connection conn = db.Connection.getDBConnection();
 
 	@Override
-	public void insert(Connection conn, entidades.Filme filme) throws Exception {
+	public void insert(entidades.Filme filme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("insert into en_filme (id_filme, data_lancamento, nome, descricao) values (?, ?, ?, ?)");
 
-        Integer idFilme = this.getNextId(conn);
+        Integer idFilme = this.getNextId();
 
         myStmt.setInt(1, idFilme);
         myStmt.setDate(2, new java.sql.Date( filme.getDataLancamento().getTime()));
@@ -32,7 +33,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	}
 
 	@Override
-	public Integer getNextId(Connection conn) throws Exception {
+	public Integer getNextId() throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("select nextval('seq_en_filme')");
         ResultSet rs = myStmt.executeQuery();
         rs.next();
@@ -40,12 +41,12 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	}
 
 	@Override
-	public void edit(Connection conn, entidades.Filme filme) throws Exception {
+	public void edit(entidades.Filme filme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("update en_filme set nome = (?), data_lancamento = (?), "
 				+ " descricao = (?) where id_filme = (?)");
 
         myStmt.setString(1, filme.getNome());
-        myStmt.setDate(2,(Date) filme.getDataLancamento());
+        myStmt.setDate(2,new java.sql.Date( filme.getDataLancamento().getTime()));
         myStmt.setString(3, filme.getDescricao());
 		myStmt.setInt(4, filme.getIdFilme());
 		
@@ -55,7 +56,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	}
 
 	@Override
-	public void delete(Connection conn, Integer idFilme) throws Exception {
+	public void delete(Integer idFilme) throws Exception {
 		deleteFilmesAlugados(conn, idFilme);
 		PreparedStatement myStmt = conn.prepareStatement("delete from en_filme where id_filme = ?");
 
@@ -76,7 +77,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	}
 
 	@Override
-	public entidades.Filme find(Connection conn, Integer idFilme) throws Exception {
+	public entidades.Filme find(Integer idFilme) throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("select * from en_filme where id_filme = ?");
 
         myStmt.setInt(1, idFilme);
@@ -94,7 +95,7 @@ public class FilmeDAOImpl implements FilmeDAO  {
 	}
 
 	@Override
-	public Collection<entidades.Filme> list(Connection conn) throws Exception {
+	public Collection<entidades.Filme> list() throws Exception {
 		PreparedStatement myStmt = conn.prepareStatement("select * from en_filme order by nome");
         ResultSet myRs = myStmt.executeQuery();
 
