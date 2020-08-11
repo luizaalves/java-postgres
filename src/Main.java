@@ -1,55 +1,137 @@
-import dao.AluguelDAO;
-import dao.ClienteDAO;
-import dao.FilmeDAO;
-import dao.jdbc.AluguelDAOImpl;
-import dao.jdbc.ClienteDAOImpl;
-import dao.jdbc.FilmeDAOImpl;
-import entidades.Aluguel;
-import entidades.Cliente;
-import entidades.Filme;
+import java.util.Scanner;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import blocs.AluguelBlocs;
 import blocs.ClienteBlocs;
-
+import blocs.FilmeBlocs;
 
 public class Main {
+	 private static String menu = "..:: Gestão de Aluguéis de filmes ::..\n"+
+	            "1 - Cliente\n"+
+	            "2 - Filmes\n"+
+	            "3 - Alugueis de filmes\n"+
+	            "4 - Sair do programa";
+	 private static String cliente = "..:: Gestão de clientes ::..\n"+
+			 	"1 - Cadastrar cliente\n"+
+	            "2 - Excluir cliente\n"+
+			 	"3 - Editar cliente específico\n"+
+	            "4 - Listar todos os clientes\n"+
+	            "5 - Voltar ao menu anterior";
+	 private static String filme = "..:: Gestão de filmes ::..\n"+
+			 	"1 - Cadastrar filme\n"+
+	            "2 - Excluir filme\n"+
+	            "3 - Editar filme específico\n"+
+	            "4 - Listar todos os filmes\n"+
+	            "5 - Voltar ao menu anterior";
+	 private static String aluguel = "..:: Gestão de alugueis de filmes ::..\n"+
+			 	"1 - Cadastrar aluguel de filmes\n"+
+	            "2 - Excluir aluguel de filmes\n"+
+	            "3 - Editar aluguel específico\n"+
+	            "4 - Listar todos os alugueis de filmes\n"+
+	            "5 - Voltar ao menu anterior";
 
-    public static void main(String[] args) {
-    	ClienteBlocs.excluir();
-    	System.out.println(ClienteBlocs.listar());
-        Connection conn = null;
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost/postgres", "postgres", "123");
-            conn.setAutoCommit(false);
+    public static void main(String[] args) throws Exception {
+    	Integer op = 0;
+    	Integer opCliente = 0;
+    	Integer opFilme = 0;
+    	Integer opAluguel = 0;
+    	
+    	Scanner sc = new Scanner(System.in);
+    	while(op!=4) {
+    		System.out.println(menu);
+    		System.out.print("> ");
+    		op = sc.nextInt();
+    		sc.nextLine();
+    		switch (op) {
+			case 1:
+				while(opCliente!=5) {
+					System.out.println(cliente);
+					System.out.print("> ");
+					opCliente = sc.nextInt();
+					if(sc.hasNextLine()) sc.nextLine(); 
+					menuCliente(opCliente);
+				}
+				break;
 
-            //Demonstrar o funcionamento aqui
-            ClienteDAO clienteDAO = new ClienteDAOImpl();
-            FilmeDAO filmeDAO = new FilmeDAOImpl();
-            AluguelDAO aluguelDAO = new AluguelDAOImpl();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-            Date date= (Date)formatter.parse("09/08/2020");
-            
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+			case 2:
+				while(opFilme!=5) {
+					System.out.println(filme);
+					System.out.print("> ");
+					opFilme = sc.nextInt();
+					if(sc.hasNextLine()) sc.nextLine();
+					menuFilme(opFilme);
+				}
+				break;
+			case 3:
+				while(opAluguel!=5) {
+					System.out.println(aluguel);
+					System.out.print("> ");
+					opAluguel = sc.nextInt();
+					if(sc.hasNextLine()) sc.nextLine();
+					menuAluguel(opAluguel);
+				}
+				
+				break;
+			}
+    	}
+    	
         System.out.println("Fim do teste.");
     }
+    private static void menuAluguel(Integer op) throws Exception {
+    	switch (op) {
+			case 1:
+				AluguelBlocs.adicionar();
+				break;
+	
+			case 2:
+				AluguelBlocs.excluir();
+				break;
+			
+			case 3: 
+				AluguelBlocs.editar();
+				break;
+			
+			case 4:
+				System.out.println(AluguelBlocs.listar());
+				break;
+		}
+	}
+	private static void menuFilme(Integer op) throws Exception {
+    	switch (op) {
+			case 1:
+				FilmeBlocs.adicionar();
+				break;
+	
+			case 2:
+				FilmeBlocs.excluir();
+				break;
+				
+			case 3:
+				FilmeBlocs.editar();
+				break;
+			
+			case 4:
+				System.out.println(FilmeBlocs.listar());
+				break;
+		}
+	}
+	private static void menuCliente(Integer op) throws Exception {
+    	switch (op) {
+			case 1:
+				ClienteBlocs.adicionar();
+				break;
+	
+			case 2:
+				ClienteBlocs.excluir();
+				break;
+				
+			case 3:
+				ClienteBlocs.editar();
+				break;
+			
+			case 4:
+				System.out.println(ClienteBlocs.listar());
+				break;
+    	}
+	}
+    
 }
