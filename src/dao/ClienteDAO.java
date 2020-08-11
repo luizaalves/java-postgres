@@ -7,16 +7,16 @@ import java.util.Collection;
 
 public interface ClienteDAO {
 
-    void insert(Connection conn, Cliente cliente) throws Exception;
+    void insert(Cliente cliente) throws Exception;
 
-    Integer getNextId(Connection conn) throws Exception;
+    Integer getNextId() throws Exception;
 
-    void edit(Connection conn, Cliente cliente) throws Exception;
+    void edit(Cliente cliente) throws Exception;
 
-    void delete(Connection conn, Integer idCliente) throws Exception;
+    void delete(Integer idCliente) throws Exception;
 
-    Cliente find(Connection conn, Integer idCliente) throws Exception;
+    Cliente find(Integer idCliente) throws Exception;
 
-    Collection<Cliente> list(Connection conn) throws Exception;
+    Collection<Cliente> list() throws Exception;
 
 }

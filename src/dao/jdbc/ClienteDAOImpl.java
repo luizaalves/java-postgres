@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class ClienteDAOImpl implements ClienteDAO {
+	Connection conn = db.Connection.getDBConnection();
 
     @Override
-    public void insert(Connection conn, Cliente cliente) throws Exception {
+    public void insert(Cliente cliente) throws Exception {
 
         PreparedStatement myStmt = conn.prepareStatement("insert into en_cliente (id_cliente, nome) values (?, ?)");
 
-        Integer idCliente = this.getNextId(conn);
+        Integer idCliente = this.getNextId();
 
         myStmt.setInt(1, idCliente);
         myStmt.setString(2, cliente.getNome());
@@ -30,7 +31,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public void edit(Connection conn, Cliente cliente) throws Exception {
+    public void edit(Cliente cliente) throws Exception {
 
         PreparedStatement myStmt = conn.prepareStatement("update en_cliente set nome = (?) where id_cliente = (?)");
 
@@ -42,7 +43,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public void delete(Connection conn, Integer idCliente) throws Exception {
+    public void delete(Integer idCliente) throws Exception {
 
         PreparedStatement myStmt = conn.prepareStatement("delete from en_cliente where id_cliente = ?");
 
@@ -54,7 +55,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public Collection<Cliente> list(Connection conn) throws Exception {
+    public Collection<Cliente> list() throws Exception {
 
         PreparedStatement myStmt = conn.prepareStatement("select * from en_cliente order by nome");
         ResultSet myRs = myStmt.executeQuery();
@@ -72,7 +73,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public Cliente find(Connection conn, Integer idCliente) throws Exception {
+    public Cliente find(Integer idCliente) throws Exception {
         PreparedStatement myStmt = conn.prepareStatement("select * from en_cliente where id_cliente = ?");
 
         myStmt.setInt(1, idCliente);
@@ -88,7 +89,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public Integer getNextId(Connection conn) throws Exception {
+    public Integer getNextId() throws Exception {
         PreparedStatement myStmt = conn.prepareStatement("select nextval('seq_en_cliente')");
         ResultSet rs = myStmt.executeQuery();
         rs.next();
