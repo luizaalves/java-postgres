@@ -4,6 +4,7 @@ import dao.FilmeDAO;
 import dao.jdbc.AluguelDAOImpl;
 import dao.jdbc.ClienteDAOImpl;
 import dao.jdbc.FilmeDAOImpl;
+import entidades.Aluguel;
 import entidades.Cliente;
 import entidades.Filme;
 
@@ -12,12 +13,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import blocs.ClienteBlocs;
 
 
 public class Main {
 
     public static void main(String[] args) {
+    	ClienteBlocs.excluir();
+    	System.out.println(ClienteBlocs.listar());
         Connection conn = null;
         try {
             Class.forName("org.postgresql.Driver");
@@ -29,18 +36,9 @@ public class Main {
             FilmeDAO filmeDAO = new FilmeDAOImpl();
             AluguelDAO aluguelDAO = new AluguelDAOImpl();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-            Date date= (Date)formatter.parse("19/11/2022");
-            //System.out.println(date);
-            //Filme filme = new Filme(19, date, "a fuga das galinhas", "Classificação livre");
-            //filmeDAO.insert(conn, filme);
-            //filmeDAO.edit(conn, filme);
-            Filme filmeId = filmeDAO.find(conn, 19);
-            filmeId.setDescricao("Classificação livre");
-            filmeId.setNome("Fuga das galinhas");
-            filmeDAO.edit(conn, filmeId);
+            Date date= (Date)formatter.parse("09/08/2020");
             
-            //System.out.println(filmeId.getDataLancamento());
-            System.out.println(aluguelDAO.find(conn, 3).toString());
+            
 
         } catch (Exception e) {
             e.printStackTrace();
