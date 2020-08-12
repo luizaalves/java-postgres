@@ -1,0 +1,1 @@
+Esse semestre no meu curso eu estou fazendo a disciplina de banco de dados e por coincidencia o primeiro projeto foi muito parecido, porém eu usei o mysql e por ter sido tão recente eu solucionei desta maneira. Eu não trabalhei com os possíveis erros cometidos pelo usuário ao fazer uma consulta por questão de tempo.
