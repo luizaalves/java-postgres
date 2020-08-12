@@ -135,7 +135,7 @@ public class AluguelBlocs {
 						SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 				        Date date = (Date)formatter.parse(data);
 				        aluguel.setDataAluguel(date);
-				        
+				        System.out.println(aluguel.getDataAluguel()+" "+aluguel.getValor());
 						break;
 					case 3:
 						System.out.println("Digite o novo valor (ex. 1.99): ");

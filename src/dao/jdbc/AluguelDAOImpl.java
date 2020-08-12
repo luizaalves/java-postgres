@@ -51,20 +51,26 @@ public class AluguelDAOImpl implements AluguelDAO{
 
 	@Override
 	public void edit(Aluguel aluguel) throws Exception {
+		String sql = "update en_aluguel set id_cliente = (?), data_aluguel = (?), "
+				+ "valor = (?) where id_aluguel = (?)";
+		try(PreparedStatement myStmt = conn.prepareStatement(sql)){
+					myStmt.setInt(1, aluguel.getCliente().getIdCliente());
+			        myStmt.setDate(2,new java.sql.Date(aluguel.getDataAluguel().getTime()));
+			        myStmt.setFloat(3, aluguel.getValor());
+					myStmt.setInt(4, aluguel.getIdAluguel());
+										
+			        myStmt.execute();
+			        conn.commit();
+			        for(Filme filme:aluguel.getFilmes()) {
+						insertFilmesAlugados(aluguel.getIdAluguel(), filme.getIdFilme());
+					}
+				}catch(SQLException e) {
+					for(Filme filme:aluguel.getFilmes()) {
+						insertFilmesAlugados(aluguel.getIdAluguel(), filme.getIdFilme());
+					}
+				}
+		conn.commit();
 		
-		PreparedStatement myStmt = conn.prepareStatement("update en_aluguel set id_cliente = (?), data_aluguel = (?), "
-				+ "valor = (?) where id_aluguel = (?)");
-		
-		myStmt.setInt(1, aluguel.getCliente().getIdCliente());
-        myStmt.setDate(2,new java.sql.Date(aluguel.getDataAluguel().getTime()));
-        myStmt.setFloat(3, aluguel.getValor());
-		myStmt.setInt(4, aluguel.getIdAluguel());
-		
-        myStmt.execute();
-        conn.commit();
-        for(Filme filme:aluguel.getFilmes()) {
-			insertFilmesAlugados(aluguel.getIdAluguel(), filme.getIdFilme());
-		}
 		
 	}
 	
@@ -75,10 +81,10 @@ public class AluguelDAOImpl implements AluguelDAO{
 		        myStmt.setInt(1, idAluguel);
 		        myStmt.setInt(2, idFilme);
 	
-		        myStmt.execute();
+		        myStmt.executeUpdate();
 		        conn.commit();
 			}catch(Exception e) {
-				
+				conn.commit();
 			}		
 	}
 	
