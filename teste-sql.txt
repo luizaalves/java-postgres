@@ -1,7 +1,7 @@
 Seu nome:
 
-1)
+1) SELECT * from en_filme f  ORDER BY f.data_lancamento ASC LIMIT 1;
 
-2)
+2) SELECT cl.id_cliente,cl.nome,count(*) as alugueis from en_aluguel al,en_cliente cl where cl.id_cliente=al.id_cliente GROUP BY cl.id_cliente;
 
-3)
+3) SELECT cl.id_cliente,cl.nome,COUNT(*) AS alugueis,SUM(al.valor) AS total_gastos, EXTRACT(YEAR FROM al.data_aluguel) from en_aluguel al, en_cliente cl WHERE cl.id_cliente=al.id_cliente GROUP BY cl.id_cliente,EXTRACT(YEAR FROM al.data_aluguel) ORDER by SUM(al.valor) DESC;
